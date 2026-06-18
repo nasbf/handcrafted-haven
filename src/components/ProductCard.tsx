@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { reviews } from "@/data/review";
 import ReviewForm from "./ReviewForm";
 import Image from "next/image";
@@ -26,17 +26,19 @@ export default function ProductCard({
   const defaultReview =
     reviews[product.id as keyof typeof reviews];
 
-  const [userReviews, setUserReviews] = useState<Review[]>([]);
+  const [userReviews, setUserReviews] = useState<Review[]>(
+    () => {
+      if (typeof window === "undefined") {
+        return [];
+      }
+
+      return JSON.parse(
+        localStorage.getItem(`reviews-${product.id}`) || "[]"
+      ) as Review[];
+    }
+  );
   const [showReviewForm, setShowReviewForm] =
     useState(false);
-
-  useEffect(() => {
-    const storedReviews = JSON.parse(
-      localStorage.getItem(`reviews-${product.id}`) || "[]"
-    );
-
-    setUserReviews(storedReviews);
-  }, [product.id]);
 
   return (
     <article className="rounded-lg overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition">
@@ -87,7 +89,7 @@ export default function ProductCard({
               </p>
 
               <p className="text-sm text-gray-600 italic">
-                "{review.comment}"
+                &quot;{review.comment}&quot;
               </p>
             </div>
           )
@@ -108,7 +110,7 @@ export default function ProductCard({
             </p>
 
             <p className="text-sm text-gray-600 italic">
-              "{review.comment}"
+              &quot;{review.comment}&quot;
             </p>
           </div>
         ))}

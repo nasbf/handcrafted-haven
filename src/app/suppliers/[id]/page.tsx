@@ -14,7 +14,7 @@ export default async function SupplierDetailsPage({
 }: Props) {
 
   const {id} = await params;
-  const { data: sellers, error } = await getAllSellers();
+  const { data: sellers } = await getAllSellers();
 
   const supplier = sellers?.find(
     (seller) => seller.id === id

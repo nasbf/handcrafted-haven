@@ -1,5 +1,10 @@
 import { supabase } from "@/lib/supabase";
 
+type ProductInput = Record<
+  string,
+  string | number | boolean | null
+>;
+
 export async function getProducts() {
   return await supabase
     .from("products")
@@ -22,7 +27,7 @@ export async function getProductById(id: string) {
     .single();
 }
 
-export async function createProduct(product: any) {
+export async function createProduct(product: ProductInput) {
   return await supabase
     .from("products")
     .insert(product);

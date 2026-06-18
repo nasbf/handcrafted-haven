@@ -24,7 +24,7 @@ export default async function CreateSupplierPage() {
     async function createSupplier(formData: FormData) {
     "use server";
 
-    const result = await createSellerProfile({
+    await createSellerProfile({
       user_id: userId,
       shop_name: formData.get("shop_name"),
       bio: formData.get("bio"),
