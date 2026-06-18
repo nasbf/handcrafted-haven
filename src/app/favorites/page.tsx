@@ -3,6 +3,15 @@ import Header from "@/components/header";
 import { getFavorites } from "@/services/favoriteService";
 import { TEST_USER_ID } from "@/lib/devUser";
 
+type Favorite = {
+  id: string;
+  products?: {
+    title?: string;
+    description?: string;
+    price?: number;
+  } | null;
+};
+
 export default async function FavoritesPage() {
   const { data: favorites } = await getFavorites(TEST_USER_ID);
 
@@ -19,7 +28,7 @@ export default async function FavoritesPage() {
 
       <section className="grid grid-cols-1 md:grid-cols-3 py-10 px-6 gap-8 max-w-6xl mx-auto">
         {favorites?.length ? (
-          favorites.map((favorite: any) => {
+          (favorites as Favorite[]).map((favorite) => {
             const product = favorite.products;
 
             return (
@@ -50,7 +59,7 @@ export default async function FavoritesPage() {
         ) : (
           <div className="col-span-full text-center py-10">
             <p className="text-gray-600">
-              You haven't added any favorites yet.
+              You haven&apos;t added any favorites yet.
             </p>
           </div>
         )}

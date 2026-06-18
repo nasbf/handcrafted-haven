@@ -1,5 +1,10 @@
 import { supabase } from "@/lib/supabase";
 
+type SellerProfileInput = Record<
+  string,
+  FormDataEntryValue | null
+>;
+
 export async function getAllSellers() {
   return await supabase
     .from("seller_profiles")
@@ -14,7 +19,9 @@ export async function getSellerProfile(userId: string) {
     .single();
 }
 
-export async function createSellerProfile(profile: any) {
+export async function createSellerProfile(
+  profile: SellerProfileInput
+) {
   return await supabase
     .from("seller_profiles")
     .insert(profile);
@@ -22,7 +29,7 @@ export async function createSellerProfile(profile: any) {
 
 export async function updateSellerProfile(
   sellerId: string,
-  updates: any
+  updates: SellerProfileInput
 ) {
   return await supabase
     .from("seller_profiles")

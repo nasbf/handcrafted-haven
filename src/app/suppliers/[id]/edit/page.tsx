@@ -27,7 +27,7 @@ export default async function SupplierDetailsPage({
   
 
   const {id} = await params;
-  const { data: sellers, error } = await getAllSellers();
+  const { data: sellers } = await getAllSellers();
 
   const supplier = sellers?.find(
     (seller) => seller.id === id
@@ -50,7 +50,7 @@ export default async function SupplierDetailsPage({
     //   location: formData.get("location"),
     //   website: formData.get("website"),
     // });
-    const result =await updateSellerProfile(id, {
+    await updateSellerProfile(id, {
       shop_name: formData.get("shop_name"),
       bio: formData.get("bio"),
       location: formData.get("location"),

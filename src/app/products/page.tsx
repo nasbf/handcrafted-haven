@@ -1,6 +1,6 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import ProductCard from "@/components/ProductCard";
+import ProductBrowser from "@/components/ProductBrowser";
 
 const products = [
   {
@@ -62,14 +62,7 @@ export default function ProductsPage() {
         </p>
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-3 py-10 px-6 gap-8 max-w-6xl mx-auto">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
-        ))}
-      </section>
+      <ProductBrowser products={products} />
 
       <Footer />
     </main>

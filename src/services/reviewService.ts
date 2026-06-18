@@ -1,5 +1,10 @@
 import { supabase } from "@/lib/supabase";
 
+type ReviewInput = Record<
+  string,
+  string | number | boolean | null
+>;
+
 export async function getReviews(
   productId: string
 ) {
@@ -16,9 +21,7 @@ export async function getReviews(
     .eq("product_id", productId);
 }
 
-export async function createReview(
-  review: any
-) {
+export async function createReview(review: ReviewInput) {
   return await supabase
     .from("reviews")
     .insert(review);
